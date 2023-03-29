@@ -10,6 +10,14 @@ exports.getAllComments = async (req, res) => {
     }
 }
 
+exports.getBookComments = async (req, res) => {
+    try {
+        Comment.listBookComments(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 exports.createComment = async (req, res) => {
     try {
         Comment.createComment(req, res);

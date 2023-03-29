@@ -4,9 +4,10 @@ const objectiveController = require('../../controllers/controller_objective');
 const auth = require('../auth');
 
 router.get('/', objectiveController.getAllObjectives);
+router.get('/:id', objectiveController.getUserObjectives);
 router.post('/', auth.required, objectiveController.createObjective);
-router.put('/:id', auth.required, objectiveController.updateObjective);
-router.delete('/:id', auth.required, objectiveController.deleteObjective);
+router.put('/', auth.required, objectiveController.updateObjective);
+// router.delete('/', auth.required, objectiveController.deleteObjective);
 // router.delete('/', objectiveController.login);
 
 
