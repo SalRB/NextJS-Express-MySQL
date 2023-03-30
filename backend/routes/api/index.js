@@ -5,6 +5,7 @@ const router = require('express').Router();
 router.use('/user', require('./user'));
 router.use('/comment', require('./comment'));
 router.use('/objective', require('./objective'));
+router.use('/favorite', require('./favorite'));
 // router.use('/profile', require('./profile'));
 
 
