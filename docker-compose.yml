@@ -15,37 +15,6 @@ services:
     depends_on:
       - mysql
     command: /bin/bash -c "usermod -u `stat -c '${UID}' .` node && groupmod -g `stat -c '${GID}' .` node && su node -c 'npm install && npm run dev'"
-  # beckend:
-  #   build:
-  #     context: ./docker
-  #     target: express
-  #     args:
-  #       UID: ${UID}
-  #   container_name: frontend_drfr
-  #   command: npm run start
-  #   depends_on:
-  #     # backend:
-  #     #   condition: service_started
-  #     mysql:
-  #       condition: service_healthy
-  #   volumes:
-  #     # - ./frontend/:/var/www
-  #     - ./backend:/home/node/app
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - readthis
-
-  # popallawMongodb:
-  #   container_name: popallawMongodb
-  #   image: mongo:6.0.1
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
-  #     - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
-  #   volumes:
-  #     - ./backend/data:/data/db
-  #   networks:
-  #     - popallawNetwork
   mysql:
     image: mysql:8.0
     container_name: mysql
