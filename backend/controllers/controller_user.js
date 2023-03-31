@@ -1,24 +1,13 @@
 const User = require('../models/user');
 const sql = require("../config/db.config");
 
-// exports.deleteusers = async (req, res) => {
-//     try {
-//         let user = await User.find();
-//         if (!user) {
-//             res.status(404);
-//         }
-//         res.json(user);
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send('Hubo un error');
-//     }
-// }
-
 exports.register = async (req, res) => {
-    try {
-        User.registerUser(req, res);
-    } catch (e) {
-        console.log(e);
+    if (!validateData(req, res)) {
+        try {
+            User.registerUser(req, res);
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
 
@@ -30,6 +19,30 @@ exports.login = async (req, res) => {
     }
 }
 
+function validateData(req, res) {
+    data = req.body;
+
+    const regex = {
+        email: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
+        username: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/igm,
+        // Deshabilitada por comodidad en el testeo
+        // const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm;
+        passwd: /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/igm,
+    };
+
+    let invalidFormat = false;
+
+    for (const key in data) {
+        console.log(data[key]);
+        if (!regex[key].exec(data[key])) {
+            invalidFormat = true;
+            res.status(500).send({ msg: "Invalid " + key + " format.", invalid: key })
+            break;
+        }
+    }
+
+    return invalidFormat;
+}
 
 exports.loadUser = (req, res) => {
     try {
@@ -39,101 +52,4 @@ exports.loadUser = (req, res) => {
     } catch (error) {
         // res.status(500).send("Something went wrong")
     }
-
-    // sql.query("SELECT * FROM users", (err, result) => {
-    //     res.status(200).send(result)
-    // });
-
-    // try {
-    //     let user = await User.findById(req.payload.id);
-    //     if (!user) {
-    //         res.status(404);
-    //     }
-    //     res.json(user.toAuthJSON());
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(500).send('Hubo un error');
-    // }
-}
-
-// exports.loadUser = async (req, res) => {
-//     try {
-//         let user = await User.findById(req.payload.id);
-//         if (!user) {
-//             res.status(404);
-//         }
-//         res.json(user.toAuthJSON());
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send('Hubo un error');
-//     }
-// }
-
-exports.getProfile = async (req, res) => {
-    try {
-        let user = await User.findById(req.payload.id);
-        if (!user) {
-            res.json({ "result": false });
-        }
-        res.json(user.toProfileJSONFor());
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Hubo un error');
-    }
-}
-
-// exports.login = async (req, res) => {
-//     try {
-//         let user = await User.findOne({ email: req.body.email });
-
-//         if (!user) {
-//             return res.json({ msg: "User doesn't exists" });
-//         } else {
-
-//             if (user.validPassword(req.body.password)) {
-//                 return res.json(user.toAuthJSON());
-//             } else {
-//                 return res.json({ msg: "Wrong password" });
-//             }
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).send('Hubo un error');
-//     }
-// }
-
-// exports.register = async (req, res, next) => {
-//     var user = new User();
-
-//     user.username = req.body.username;
-//     user.email = req.body.email;
-//     user.setPassword(req.body.password);
-//     user.image = 'https://static.productionready.io/images/smiley-cyrus.jpg';
-//     user.bio = 'Hello, this is my profile.';
-
-//     user.save().then(function () {
-//         return res.json(user.toAuthJSON());
-//     }).catch(next);
-// }
-
-exports.updateUser = async (req, res, next) => {
-    let user = await User.findById(req.payload.id);
-
-    if (!user) { return res.sendStatus(401); }
-
-    if (typeof req.body.bio !== 'undefined') {
-        user.bio = req.body.bio;
-    }
-
-    if (typeof req.body.password !== 'undefined') {
-        user.setPassword(req.body.password);
-    }
-
-    if (typeof req.body.image !== 'undefined') {
-        user.image = req.body.image;
-    }
-
-    user.save().then(function () {
-        return res.json(user.toProfileJSONFor());
-    });
 }

@@ -8,7 +8,6 @@ require('dotenv').config();
 const list = (req, res) => {
     try {
         const result = mySQLRequest(req, res, "SELECT * FROM users");
-        // const result = mySQLRequest(req, res, "SELECT * FROM users WHERE username = ? AND passwd = ?;", ["salva", "pacopaco"]);
         return { status: 200, result: result }
     } catch (e) {
         return { status: 500, error: e, result: undefined };
@@ -59,13 +58,10 @@ const userAPI = {
 
 
 const encodePassword = (password) => {
-    // const salt = crypto.randomBytes(16).toString('hex');
     return hash = crypto.pbkdf2Sync(password, process.env.SECRET, 10000, 64, 'sha512').toString('hex');
 }
 
 const validatePassword = (password, storedPassword) => {
-    // const salt = crypto.randomBytes(16).toString('hex');
-    // console.log(salt);
     const hash = crypto.pbkdf2Sync(password, process.env.SECRET, 10000, 64, 'sha512').toString('hex');
     return storedPassword === hash;
 }
