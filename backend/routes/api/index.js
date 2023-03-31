@@ -6,6 +6,7 @@ router.use('/user', require('./user'));
 router.use('/comment', require('./comment'));
 router.use('/objective', require('./objective'));
 router.use('/favorite', require('./favorite'));
+router.use('/bookshelf', require('./bookshelf'));
 // router.use('/profile', require('./profile'));
 
 

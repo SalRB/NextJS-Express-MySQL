@@ -21,20 +21,18 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE social (
+CREATE TABLE favorites (
     user_id INT,
     book VARCHAR(255),
     favorited BOOLEAN,
-    shared BOOLEAN,
     PRIMARY KEY (user_id, book),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE objectives (
     user_id INT,
-	objective_year DATE,
+	objective_year INT,
     to_read INT,
-    done BOOLEAN,
     PRIMARY KEY (user_id, objective_year),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -42,9 +40,9 @@ CREATE TABLE objectives (
 CREATE TABLE bookshelf (
     user_id INT,
     book VARCHAR(255),
-    state VARCHAR(255),
-    review INT,
-    progress INT,
+    state VARCHAR(255) DEFAULT "Reading",
+    review INT DEFAULT NULL,
+    progress INT DEFAULT 0,
     PRIMARY KEY (user_id, book),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
