@@ -28,24 +28,27 @@ const register = (req, res) => {
             [data.username, data.email, data.passwd, data.pfp, data.bio, data.states]);
         return { status: 200, result: result }
     } catch (e) {
-        res.status(500).send("Something went wrong")
+        res.status(500).send({ msg: "Something went wrong", msgType: "error" });
     }
 }
 
 const login = (req, res) => {
     data = req.body;
-
     try {
         sql.query("SELECT username, pfp, states, passwd FROM users WHERE email = ?", data.email, (err, result) => {
-            if (err) if (err.errno == 1062) res.status(500).send("Email already taken")
-            if (validatePassword(data.passwd, result[0].passwd)) {
-                res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, states: result[0].states, } })
+            if (err) if (err.errno == 1062) res.status(500).send({ msg: "Email already taken", msgType: "error" })
+            if (!result[0]) {
+                res.status(500).send({ msg: "Wrong Password", msgType: "error" })
             } else {
-                res.status(500).send("Wrong Password")
+                if (validatePassword(data.passwd, result[0].passwd)) {
+                    res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, states: result[0].states, } })
+                } else {
+                    res.status(500).send({ msg: "Wrong Password", msgType: "error" })
+                }
             }
         });
     } catch (e) {
-        res.status(500).send("Something went wrong")
+        res.status(500).send({ msg: "Something went wrong", msgType: "error" });
     }
 }
 

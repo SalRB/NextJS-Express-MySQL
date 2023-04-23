@@ -7,7 +7,7 @@ const mySQLRequest = async (req, res, request, params = null) => {
     // res.json(result);
     try {
         let a = sql.query(request, params, (err, result) => {
-            if (err) if (err.errno == 1062) res.status(500).send("Email already taken")
+            if (err) if (err.errno == 1062) res.status(500).send({ msg: "Something went wrong", msgType: "error" })
             res.status(200).send(result)
         });
         console.log(a.sql);

@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 export function ListBooks(books) {
-
     return (
         <>
             <h1>Esto es un listado</h1>

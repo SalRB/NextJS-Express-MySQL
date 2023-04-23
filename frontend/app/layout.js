@@ -1,7 +1,13 @@
-'use client'
+"use client"
+
+import { SessionProvider } from "next-auth/react";
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Link from 'next/link'
 import './globals.css'
+import { Header } from "./components/header";
 
 export const metadata = {
   title: 'Título',
@@ -12,32 +18,20 @@ const links = [{
   label: "Home",
   route: "/",
 }, {
-  label: "Login",
-  route: "/login",
-}, {
   label: "Books",
   route: "/books",
 }]
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, session }) {
 
   return (
     <html lang='en'>
       <body>
-        <header>
-          <nav>
-            <ul>
-              {links.map(({ label, route }) => {
-                return <li key={route}>
-                  <Link href={route}>
-                    {label}
-                  </Link>
-                </li>
-              })}
-            </ul>
-          </nav>
-        </header>
-        {children}
+        <SessionProvider session={session}>
+          <ToastContainer />
+          <Header links={links} />
+          {children}
+        </SessionProvider>
       </body>
     </html >
   )
