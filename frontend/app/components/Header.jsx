@@ -2,10 +2,10 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { Search } from "./Search";
 
 export function Header({ links }) {
     const { data: session } = useSession();
-    console.log(session?.user);
 
     return (
         <header>
@@ -28,6 +28,7 @@ export function Header({ links }) {
                                 <button onClick={() => signIn()}>Login</button>
                             </li>
                     }
+                    <Search />
                 </ul>
             </nav>
         </header>

@@ -7,10 +7,14 @@ const bookConsumer = {
             url: secret.GOOGLE_API_URL + "/volumes?q=a&maxResults=10&startIndex=0",
             method: "get",
         })
-        // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        // console.log(result.json());
         return result;
-
+    },
+    search: async (data) => {
+        const result = await Api({
+            url: secret.GOOGLE_API_URL + `/volumes?q=${data.query}&maxResults=10&startIndex=0`,
+            method: "get",
+        })
+        return result;
     },
 }
 

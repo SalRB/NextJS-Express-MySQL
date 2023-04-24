@@ -10,21 +10,7 @@ export default async function HomePage() {
     let books;
 
     if (!books) {
-
-        // fetch("https://www.googleapis.com/books/v1/volumes?q=a&maxResults=10&startIndex=0")
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log("a");
-        //         console.log(data);
-        //         // setBooks(data);
-        //         books = data;
-        //     })
-
-        // console.log(await bikeConsumer.get());
         books = await consume(queryConsumer.apiBook, bookQueries.getBooks)
-
-        await consume(queryConsumer.apiUser, userQueries.testUsers)
-
     }
 
     return (
