@@ -10,8 +10,14 @@ const bookConsumer = {
         return result;
     },
     search: async (data) => {
+        let advancedTerms = "";
+        if (data.author)
+            advancedTerms = `${advancedTerms}+inauthor:${data.author}`
+        if (data.isbn)
+            advancedTerms = `${advancedTerms}+isbn:${data.isbn}`
+
         const result = await Api({
-            url: secret.GOOGLE_API_URL + `/volumes?q=${data.query}&maxResults=10&startIndex=0`,
+            url: secret.GOOGLE_API_URL + `/volumes?q=${data.query}${advancedTerms}&maxResults=10&startIndex=0`,
             method: "get",
         })
         return result;

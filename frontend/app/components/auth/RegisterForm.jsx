@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
-import { queryConsumer, userQueries } from "../core/queries";
-import consume from "../core/consumer";
+import { queryConsumer, userQueries } from "../../core/queries";
+import consume from "../../core/consumer";
 
 export function RegisterForm({ setform }) {
     const router = useRouter();

@@ -2,7 +2,7 @@
 
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { Search } from "./Search";
+import { Search } from "./search/Search";
 
 export function Header({ links }) {
     const { data: session } = useSession();
