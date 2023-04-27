@@ -15,8 +15,8 @@ export default function HomePage() {
     //     console.log(books);
     // }
 
-    // const { data: session } = useSession();
-    // console.log(session?.user);
+    const { data: session } = useSession();
+    console.log(session?.user);
 
 
     // if (!books && session?.user) {

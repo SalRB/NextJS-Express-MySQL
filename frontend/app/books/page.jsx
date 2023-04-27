@@ -15,10 +15,9 @@ export default async function HomePage() {
 
     return (
         <>
-            <span>a</span>
             {books
                 ? <ListBooks books={books.items} />
-                : <>kk</>
+                : <>Loading...</>
             }
         </>
     )

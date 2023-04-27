@@ -5,13 +5,12 @@ CREATE TABLE users (
     passwd VARCHAR(255),
     pfp LONGTEXT,
     bio VARCHAR(255),
-    states JSON,
     PRIMARY KEY (id),
     UNIQUE (email)
 );
 
 CREATE TABLE comments (
-    id int AUTO_INCREMENT,
+    id INT AUTO_INCREMENT,
     user_id INT,
     book VARCHAR(1024),
     content VARCHAR(8192),
@@ -37,13 +36,32 @@ CREATE TABLE objectives (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+CREATE TABLE books (
+    id VARCHAR(256),
+    title VARCHAR(1024),
+    image VARCHAR(1024),
+    pages INT,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE bookshelf (
     user_id INT,
-    book VARCHAR(255),
-    state VARCHAR(255) DEFAULT "Reading",
+    book_id VARCHAR(255),
+    state_id INT,
     review INT DEFAULT NULL,
     progress INT DEFAULT 0,
-    PRIMARY KEY (user_id, book),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    PRIMARY KEY (user_id, book_id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (book_id) REFERENCES books(id),
+    FOREIGN KEY (state_id) REFERENCES states(id)
 );
+
+CREATE TABLE states (
+    id INT AUTO_INCREMENT,
+	state_name VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO states (state_name)
+VALUES ("Reading"), ("Plan to read"), ("Completed");
 

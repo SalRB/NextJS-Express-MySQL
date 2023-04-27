@@ -9,6 +9,13 @@ const bookConsumer = {
         })
         return result;
     },
+    getOne: async (id) => {
+        const result = await Api({
+            url: secret.GOOGLE_API_URL + `/volumes/${id}`,
+            method: "get",
+        })
+        return result;
+    },
     search: async (data) => {
         let advancedTerms = "";
         if (data.author)

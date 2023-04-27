@@ -18,14 +18,13 @@ const register = (req, res) => {
     data = req.body;
     data.pfp = 'https://static.productionready.io/images/smiley-cyrus.jpg';
     data.bio = 'Hello, this is my profile.';
-    data.states = '["Plan to read", "Reading", "Completed"]';
     data.passwd = encodePassword(data.passwd);
 
     try {
         const result = mySQLRequest(req, res,
-            `INSERT INTO users (username, email, passwd, pfp, bio, states)
-            VALUES (?, ?, ?, ?, ?, ?);`,
-            [data.username, data.email, data.passwd, data.pfp, data.bio, data.states]);
+            `INSERT INTO users (username, email, passwd, pfp, bio)
+            VALUES (?, ?, ?, ?, ?);`,
+            [data.username, data.email, data.passwd, data.pfp, data.bio]);
         return { status: 200, result: result }
     } catch (e) {
         res.status(500).send({ msg: "Something went wrong", msgType: "error" });
@@ -35,13 +34,13 @@ const register = (req, res) => {
 const login = (req, res) => {
     data = req.body;
     try {
-        sql.query("SELECT username, pfp, states, passwd FROM users WHERE email = ?", data.email, (err, result) => {
+        sql.query("SELECT username, pfp, passwd FROM users WHERE email = ?", data.email, (err, result) => {
             if (err) if (err.errno == 1062) res.status(500).send({ msg: "Email already taken", msgType: "error" })
             if (!result[0]) {
                 res.status(500).send({ msg: "Wrong Password", msgType: "error" })
             } else {
                 if (validatePassword(data.passwd, result[0].passwd)) {
-                    res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, states: result[0].states, } })
+                    res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, } })
                 } else {
                     res.status(500).send({ msg: "Wrong Password", msgType: "error" })
                 }

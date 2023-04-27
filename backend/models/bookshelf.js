@@ -2,10 +2,11 @@ const mySQLRequest = require('./mysql.controller');
 const sql = require("../config/db.config");
 
 const list = (req, res) => {
+    const data = req.body;
     const user_id = req.params.user;
     let filter = "";
 
-    if (req.body.state) filter = `AND state = '${req.body.state}';`;
+    if (req.body.state) filter = `AND state_id = (SELECT id from states WHERE state_name = '${data.state}');`;
 
     try {
         const result = mySQLRequest(req, res,
@@ -18,16 +19,36 @@ const list = (req, res) => {
     }
 }
 
-const create = (req, res) => {
-    const data = req.body;
+const userEntry = (req, res) => {
+    const book = req.params.book;
     const email = req.auth.username;
 
     try {
         const result = mySQLRequest(req, res,
-            `INSERT INTO bookshelf (user_id, book)
-            VALUES ((SELECT id FROM users WHERE email = ?), ?);
-            SELECT * FROM bookshelf WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book = ?;`,
-            [email, data.book, email, data.book]);
+            `SELECT b.* FROM bookshelf b, users u
+            WHERE u.email = ? AND b.book_id = ?;`,
+            [email, book]);
+        return { status: 200, result: result }
+    } catch (e) {
+        res.status(500).send("Something went wrong")
+    }
+}
+
+const create = (req, res) => {
+    const data = req.body;
+    const email = req.auth.username;
+    // ON DUPLICATE KEY UPDATE id = id evita que salte un error sin que SQL cuente que la columna se ha actualizado, solo se lo salta
+    try {
+        const result = mySQLRequest(req, res,
+            `INSERT INTO books (id, title, image, pages) 
+            VALUES (?, ?, ?, ?) 
+            ON DUPLICATE KEY UPDATE id = id; 
+
+            INSERT INTO bookshelf (user_id, book_id, state_id)
+            VALUES ((SELECT id FROM users WHERE email = ?), ?, 1)
+            ON DUPLICATE KEY UPDATE book_id = book_id;
+            SELECT * FROM bookshelf WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book_id = ?;`,
+            [data.id, data.title, data.image, data.pages, email, data.id, email, data.id]);
         return { status: 200, result: result }
     } catch (e) {
         res.status(500).send("Something went wrong")
@@ -41,7 +62,7 @@ const update = (req, res) => {
 
     let to_update = "";
 
-    if (data.state) to_update = `state = '${data.state}'`;
+    if (data.state) to_update = `state_id = (SELECT id from states WHERE state_name = '${data.state}')`;
     if (data.review) to_update = `review = '${data.review}'`;
     if (data.progress) to_update = `progress = '${data.progress}'`;
 
@@ -49,7 +70,7 @@ const update = (req, res) => {
         const result = mySQLRequest(req, res,
             `UPDATE bookshelf
             SET ${to_update}
-            WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book = ?;`,
+            WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book_id = ?;`,
             [email, book]);
         return { status: 200, result: result }
     } catch (e) {
@@ -64,7 +85,7 @@ const deleteOne = (req, res) => {
     try {
         const result = mySQLRequest(req, res,
             `DELETE FROM bookshelf
-            WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book = ?;`,
+            WHERE user_id = (SELECT id FROM users WHERE email = ?) AND book_id = ?;`,
             [email, book]);
         return { status: 200, result: result }
     } catch (e) {
@@ -74,6 +95,7 @@ const deleteOne = (req, res) => {
 
 const bookshelfAPI = {
     listUserEntries: list,
+    getUserEntry: userEntry,
     createEntry: create,
     updateEntry: update,
     deleteEntry: deleteOne,

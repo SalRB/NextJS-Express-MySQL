@@ -10,6 +10,14 @@ exports.getUserEntries = async (req, res) => {
     }
 }
 
+exports.getLoggedUserEntry = async (req, res) => {
+    try {
+        Bookshelf.getUserEntry(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 exports.createEntry = async (req, res) => {
     try {
         Bookshelf.createEntry(req, res);

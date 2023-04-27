@@ -1,5 +1,6 @@
 const bookQueries = {
     getBooks: "get",
+    getBook: "getOne",
     searchBooks: "search",
 }
 
