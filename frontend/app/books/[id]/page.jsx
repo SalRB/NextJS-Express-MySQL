@@ -1,21 +1,35 @@
 "use client"
 
+import { BookForm } from "@/app/components/BookForm";
 import consume from "@/app/core/consumer";
-import { bookQueries, queryConsumer } from "@/app/core/queries";
-import { useEffect, useState } from "react"
+import { bookQueries, bookshelfQueries, queryConsumer } from "@/app/core/queries";
+import { useSession } from "next-auth/react";
+import { useState } from "react"
 
 export default function HomePage() {
-    const [book, setBook] = useState()
+    const [book, setBook] = useState();
+    const [formData, setFormData] = useState();
+    const { data: session } = useSession();
+    let id;
 
     setTimeout(() => {
-        const id = window.location.href.split("/")[4];
+        id = window.location.href.split("/")[4];
         if (!book) {
             fetch(id);
         }
     }, 0);
 
-    const fetch = async (id) => {
-        setBook(await consume(queryConsumer.apiBook, bookQueries.getBook, id))
+    const fetch = async () => {
+        setBook(await consume(queryConsumer.apiBook, bookQueries.getBook, id));
+        if (session) {
+            setFormData(await consume(queryConsumer.apiBookshelf, bookshelfQueries.getBookEntryData, { token: session.user.token, book: id }));
+        }
+    }
+
+    const updateUserEntry = async (data) => {
+        console.log({ token: session.user.token, book: id, data });
+        const juan = await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
+        console.log(juan);
     }
 
     return (
@@ -32,12 +46,11 @@ export default function HomePage() {
                 }
                 <br />
                 <br />
-                <select name="" id="">
-                    <option value="Reading">Reading</option>
-                    <option value="Plan to read">Plan to read</option>
-                    <option value="Completed">Completed</option>
-                </select>
-
+                {
+                    formData != undefined
+                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} />
+                        : <></>
+                }
             </div>
 
         </>

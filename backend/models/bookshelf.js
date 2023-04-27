@@ -25,8 +25,8 @@ const userEntry = (req, res) => {
 
     try {
         const result = mySQLRequest(req, res,
-            `SELECT b.* FROM bookshelf b, users u
-            WHERE u.email = ? AND b.book_id = ?;`,
+            `SELECT b.*, s.state_name FROM bookshelf b, users u, states s
+            WHERE u.email = ? AND u.id = b.user_id AND b.book_id = ? AND s.id = b.state_id;`,
             [email, book]);
         return { status: 200, result: result }
     } catch (e) {
