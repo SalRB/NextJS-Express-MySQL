@@ -14,7 +14,7 @@ const bookList = (req, res) => {
     let book = req.params.book;
 
     try {
-        const result = mySQLRequest(req, res, "SELECT * FROM comments WHERE book = ?;", book);
+        const result = mySQLRequest(req, res, "SELECT c.*, u.username FROM comments c, users u WHERE c.book = ? AND c.user_id = u.id;", book);
         return { status: 200, result: result }
     } catch (e) {
         return { status: 500, error: e, result: undefined };

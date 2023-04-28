@@ -1,14 +1,16 @@
 "use client"
 
 import { BookForm } from "@/app/components/BookForm";
+import { Comments } from "@/app/components/Comments";
 import consume from "@/app/core/consumer";
-import { bookQueries, bookshelfQueries, queryConsumer } from "@/app/core/queries";
+import { bookQueries, bookshelfQueries, commentQueries, queryConsumer } from "@/app/core/queries";
 import { useSession } from "next-auth/react";
 import { useState } from "react"
 
 export default function HomePage() {
     const [book, setBook] = useState();
     const [formData, setFormData] = useState();
+    const [comments, setComments] = useState();
     const { data: session } = useSession();
     let id;
 
@@ -21,18 +23,14 @@ export default function HomePage() {
 
     const fetch = async () => {
         setBook(await consume(queryConsumer.apiBook, bookQueries.getBook, id));
+        setComments(await consume(queryConsumer.apiComment, commentQueries.getComments, id));
         if (session) {
             setFormData(await consume(queryConsumer.apiBookshelf, bookshelfQueries.getBookEntryData, { token: session.user.token, book: id }));
         }
     }
 
     const updateUserEntry = async (data) => {
-        // console.log(Object.values(data)[0]);
-        // Object.values(data)[0] = null;
-        // console.log(data);
-        // if (condition) {
         await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
-        // }
     }
 
     const createEntry = async () => {
@@ -55,6 +53,9 @@ export default function HomePage() {
         setFormData(null);
     }
 
+    const createComment = async (content) => {
+        await consume(queryConsumer.apiComment, commentQueries.createComment, { token: session.user.token, data: { book: id, content: content } });
+    }
 
     return (
         <>
@@ -77,6 +78,8 @@ export default function HomePage() {
                             ? <span onClick={() => { createEntry() }}>Add</span>
                             : <span>Login to be able of registering books</span>
                 }
+
+                <Comments comments={comments} createComment={createComment} session={session} />
             </div>
 
         </>
