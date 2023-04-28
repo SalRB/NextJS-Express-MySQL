@@ -63,7 +63,13 @@ const update = (req, res) => {
     let to_update = "";
 
     if (data.state) to_update = `state_id = (SELECT id from states WHERE state_name = '${data.state}')`;
-    if (data.review) to_update = `review = '${data.review}'`;
+    if (typeof data.review) {
+        console.log('a');
+        if (data.review?.length)
+            to_update = `review = null`;
+        else
+            to_update = `review = '${data.review}'`;
+    }
     if (data.progress) to_update = `progress = '${data.progress}'`;
 
     try {

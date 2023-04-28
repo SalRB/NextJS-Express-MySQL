@@ -19,6 +19,23 @@ const bookshelfConsumer = {
         })
         return result;
     },
+    create: async (data) => {
+        const result = await Api({
+            url: secret.EXPRESS_APP_URL + `/bookshelf`,
+            method: "post",
+            body: data.book,
+            token: data.token,
+        })
+        return result;
+    },
+    delete: async (data) => {
+        const result = await Api({
+            url: secret.EXPRESS_APP_URL + `/bookshelf/${data.book}`,
+            method: "delete",
+            token: data.token,
+        })
+        return result;
+    },
 }
 
 export default bookshelfConsumer;

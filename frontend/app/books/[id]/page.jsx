@@ -27,10 +27,34 @@ export default function HomePage() {
     }
 
     const updateUserEntry = async (data) => {
-        console.log({ token: session.user.token, book: id, data });
-        const juan = await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
-        console.log(juan);
+        // console.log(Object.values(data)[0]);
+        // Object.values(data)[0] = null;
+        // console.log(data);
+        // if (condition) {
+        await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
+        // }
     }
+
+    const createEntry = async () => {
+        const data = {
+            token: session.user.token,
+            book: {
+                id: book.id,
+                title: book.volumeInfo.title,
+                pages: book.volumeInfo.pageCount,
+                image: book.volumeInfo.imageLinks.thumbnail
+            }
+        };
+        const res = await consume(queryConsumer.apiBookshelf, bookshelfQueries.createEntry, data);
+        console.log(res[2]);
+        setFormData(res[2]);
+    }
+
+    const deleteEntry = async () => {
+        const res = await consume(queryConsumer.apiBookshelf, bookshelfQueries.deleteEntry, data);
+        setFormData(null);
+    }
+
 
     return (
         <>
@@ -47,9 +71,11 @@ export default function HomePage() {
                 <br />
                 <br />
                 {
-                    formData != undefined
-                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} />
-                        : <></>
+                    formData?.length >= 1
+                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} deleteEntry={deleteEntry} />
+                        : session?.user
+                            ? <span onClick={() => { createEntry() }}>Add</span>
+                            : <span>Login to be able of registering books</span>
                 }
             </div>
 
