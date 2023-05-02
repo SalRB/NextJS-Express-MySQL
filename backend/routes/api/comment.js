@@ -5,6 +5,7 @@ const auth = require('../auth');
 
 router.get('/', commentController.getAllComments);
 router.get('/:book', commentController.getBookComments);
+router.get('/user/:user', commentController.getUserComments);
 router.post('/', auth.required, commentController.createComment);
 router.put('/:id', auth.required, commentController.updateComment);
 router.delete('/:id', auth.required, commentController.deleteComment);

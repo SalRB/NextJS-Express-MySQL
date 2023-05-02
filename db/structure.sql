@@ -12,19 +12,11 @@ CREATE TABLE users (
 CREATE TABLE comments (
     id INT AUTO_INCREMENT,
     user_id INT,
-    book VARCHAR(1024),
+    book_id VARCHAR(1024),
     content VARCHAR(8192),
     created_at DATETIME,
     edited BOOLEAN DEFAULT false,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
-CREATE TABLE favorites (
-    user_id INT,
-    book VARCHAR(255),
-    favorited BOOLEAN,
-    PRIMARY KEY (user_id, book),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -44,22 +36,23 @@ CREATE TABLE books (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE states (
+    id INT AUTO_INCREMENT,
+	state_name VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE bookshelf (
     user_id INT,
     book_id VARCHAR(255),
     state_id INT,
     review INT DEFAULT NULL,
     progress INT DEFAULT 0,
+    favorited BOOLEAN,
     PRIMARY KEY (user_id, book_id),
     FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (book_id) REFERENCES books(id),
     FOREIGN KEY (state_id) REFERENCES states(id)
-);
-
-CREATE TABLE states (
-    id INT AUTO_INCREMENT,
-	state_name VARCHAR(255),
-    PRIMARY KEY (id)
 );
 
 INSERT INTO states (state_name)

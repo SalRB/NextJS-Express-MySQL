@@ -19,6 +19,14 @@ exports.login = async (req, res) => {
     }
 }
 
+exports.getUser = async (req, res) => {
+    try {
+        User.getUser(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 function validateData(req, res) {
     data = req.body;
 

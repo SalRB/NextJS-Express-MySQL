@@ -51,11 +51,27 @@ const login = (req, res) => {
     }
 }
 
+const get = (req, res) => {
+    const user_id = req.params.user;
+
+    try {
+        const result = mySQLRequest(req, res,
+            `SELECT id, username, pfp, bio FROM users 
+            WHERE id = ?`,
+            [user_id]);
+        return { status: 200, result: result }
+    } catch (e) {
+        return { status: 500, error: e, result: undefined };
+    }
+}
+
+
 
 const userAPI = {
     listAllUsers: list,
     registerUser: register,
     loginUser: login,
+    getUser: get,
 };
 
 

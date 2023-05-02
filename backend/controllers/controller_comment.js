@@ -18,6 +18,14 @@ exports.getBookComments = async (req, res) => {
     }
 }
 
+exports.getUserComments = async (req, res) => {
+    try {
+        Comment.listUserComments(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 exports.createComment = async (req, res) => {
     try {
         Comment.createComment(req, res);

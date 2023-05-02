@@ -17,7 +17,7 @@ export default function HomePage() {
     setTimeout(() => {
         id = window.location.href.split("/")[4];
         if (!book) {
-            fetch(id);
+            fetch();
         }
     }, 0);
 

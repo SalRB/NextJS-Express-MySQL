@@ -30,6 +30,13 @@ const userConsumer = {
         })
         return result;
     },
+    get: async (id) => {
+        const result = await Api({
+            url: secret.EXPRESS_APP_URL + `/user/${id}`,
+            method: "get",
+        })
+        return result;
+    },
 }
 
 export default userConsumer;

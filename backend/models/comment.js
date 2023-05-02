@@ -14,7 +14,18 @@ const bookList = (req, res) => {
     let book = req.params.book;
 
     try {
-        const result = mySQLRequest(req, res, "SELECT c.*, u.username FROM comments c, users u WHERE c.book = ? AND c.user_id = u.id;", book);
+        const result = mySQLRequest(req, res, "SELECT c.*, u.username FROM comments c, users u WHERE c.book_id = ? AND c.user_id = u.id;", book);
+        return { status: 200, result: result }
+    } catch (e) {
+        return { status: 500, error: e, result: undefined };
+    }
+}
+
+const userList = (req, res) => {
+    const user = req.params.user;
+
+    try {
+        const result = mySQLRequest(req, res, "SELECT b.*, c.*, u.username FROM comments c, users u, books b WHERE c.user_id = u.id AND u.id = ? AND c.book_id = b.id;", user);
         return { status: 200, result: result }
     } catch (e) {
         return { status: 500, error: e, result: undefined };
@@ -26,7 +37,7 @@ const create = (req, res) => {
 
     try {
         const result = mySQLRequest(req, res,
-            `INSERT INTO comments (user_id, book, content, created_at)
+            `INSERT INTO comments (user_id, book_id, content, created_at)
             VALUES ((SELECT id FROM users WHERE email = ?), ?, ?, UTC_TIMESTAMP());
             SELECT * FROM comments WHERE id = LAST_INSERT_ID();`,
             [req.auth.username, data.book, data.content]);
@@ -69,6 +80,7 @@ const deleteOne = (req, res) => {
 const commentAPI = {
     listAllComments: list,
     listBookComments: bookList,
+    listUserComments: userList,
     createComment: create,
     updateComment: update,
     deleteComment: deleteOne,

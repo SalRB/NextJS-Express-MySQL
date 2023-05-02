@@ -1,5 +1,4 @@
 export function Comments({ comments, createComment, session }) {
-    // console.log(comments);
     return (
         <>
             <br />
@@ -8,7 +7,7 @@ export function Comments({ comments, createComment, session }) {
                 ? <>
                     {comments.map(comment => {
                         return (
-                            <div>
+                            <div key={comment.id}>
                                 <span>{comment.username} {comment.created_at.split("T")[0]}</span>
                                 <div>{comment.content}</div>
                             </div>
