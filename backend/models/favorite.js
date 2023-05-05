@@ -7,7 +7,7 @@ const toggle = (req, res) => {
 
     try {
         const result = mySQLRequest(req, res,
-            `INSERT INTO favorites (user_id, book, favorited) 
+            `INSERT INTO favorites (user_id, book_id, favorited) 
             VALUES ((SELECT id FROM users WHERE email = ?), ?, ?) 
             ON DUPLICATE KEY UPDATE favorited = ?;`,
             [email, data.book, data.favorited, data.favorited]);
@@ -22,7 +22,7 @@ const userList = (req, res) => {
 
     try {
         const result = mySQLRequest(req, res,
-            `SELECT book, favorited FROM favorites
+            `SELECT book_id, favorited FROM favorites
             WHERE user_id = ?`,
             user);
         return { status: 200, result: result }

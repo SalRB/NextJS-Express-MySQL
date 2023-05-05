@@ -34,13 +34,13 @@ const register = (req, res) => {
 const login = (req, res) => {
     data = req.body;
     try {
-        sql.query("SELECT username, pfp, passwd FROM users WHERE email = ?", data.email, (err, result) => {
+        sql.query("SELECT username, pfp, passwd, id FROM users WHERE email = ?", data.email, (err, result) => {
             if (err) if (err.errno == 1062) res.status(500).send({ msg: "Email already taken", msgType: "error" })
             if (!result[0]) {
                 res.status(500).send({ msg: "Wrong Password", msgType: "error" })
             } else {
                 if (validatePassword(data.passwd, result[0].passwd)) {
-                    res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, } })
+                    res.status(200).send({ msg: "Login Successful", token: generateJWT(data.email), data: { id: result[0].id, username: result[0].username, email: data.email, pfp: result[0].pfp, bio: result[0].bio, } })
                 } else {
                     res.status(500).send({ msg: "Wrong Password", msgType: "error" })
                 }

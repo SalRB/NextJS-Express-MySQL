@@ -41,3 +41,19 @@ exports.deleteEntry = async (req, res) => {
         console.log(e);
     }
 }
+
+exports.toggleFavorite = async (req, res) => {
+    try {
+        Bookshelf.toggleFavorite(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+exports.getUserFavorites = async (req, res) => {
+    try {
+        Bookshelf.listUserFavorites(req, res);
+    } catch (e) {
+        console.log(e);
+    }
+}

@@ -10,7 +10,6 @@ import { queryConsumer, userQueries } from "./core/queries";
 export default function HomePage() {
 
     const { data: session } = useSession();
-    console.log(session?.user);
 
     return (
         <>

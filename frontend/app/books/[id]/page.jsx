@@ -19,7 +19,7 @@ export default function HomePage() {
         if (!book) {
             fetch();
         }
-    }, 0);
+    }, 10);
 
     const fetch = async () => {
         setBook(await consume(queryConsumer.apiBook, bookQueries.getBook, id));

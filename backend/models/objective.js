@@ -14,7 +14,13 @@ const userList = (req, res) => {
     let id = req.params.id;
 
     try {
-        const result = mySQLRequest(req, res, "SELECT * FROM objectives WHERE user_id = ?;", id);
+        const result = mySQLRequest(req, res,
+            `SELECT o.*, COUNT(bs.book_id) as read_books 
+            FROM objectives o           
+            LEFT JOIN bookshelf bs ON o.objective_year = bs.completed_year
+            WHERE o.user_id = ? 
+            GROUP BY o.objective_year;`,
+            id);
         return { status: 200, result: result }
     } catch (e) {
         return { status: 500, error: e, result: undefined };

@@ -1,24 +1,17 @@
 import Api from "../api/fetch.core";
 import secret from "../../../secret";
 
-const commentConsumer = {
+const objectiveConsumer = {
     get: async (data) => {
         const result = await Api({
-            url: secret.EXPRESS_APP_URL + `/comment/${data}`,
-            method: "get",
-        })
-        return result;
-    },
-    userComments: async (data) => {
-        const result = await Api({
-            url: secret.EXPRESS_APP_URL + `/comment/user/${data}`,
+            url: secret.EXPRESS_APP_URL + `/objective/${data}`,
             method: "get",
         })
         return result;
     },
     create: async (data) => {
         const result = await Api({
-            url: secret.EXPRESS_APP_URL + `/comment`,
+            url: secret.EXPRESS_APP_URL + `/objective`,
             method: "post",
             body: data.data,
             token: data.token
@@ -27,4 +20,4 @@ const commentConsumer = {
     },
 }
 
-export default commentConsumer;
+export default objectiveConsumer;

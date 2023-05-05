@@ -22,7 +22,7 @@ export function Header({ links }) {
                         session?.user
                             ? <>
                                 <button onClick={() => signOut()}>Log out</button>
-                                <li>{session.user.data.username}</li>
+                                <li><Link href={`/profile/${session.user.data.id}`} className="pointer">{session.user.data.username}</Link></li>
                             </>
                             : <li>
                                 <button onClick={() => signIn()}>Login</button>

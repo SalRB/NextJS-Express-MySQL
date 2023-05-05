@@ -3,6 +3,7 @@ const queryConsumer = {
     apiBookshelf: "ApiBookshelf",
     apiUser: "ApiUser",
     apiComment: "ApiComment",
+    apiObjective: "ApiObjective",
 }
 
 export default queryConsumer;

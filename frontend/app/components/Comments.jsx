@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export function Comments({ comments, createComment, session }) {
     return (
         <>
@@ -8,7 +10,8 @@ export function Comments({ comments, createComment, session }) {
                     {comments.map(comment => {
                         return (
                             <div key={comment.id}>
-                                <span>{comment.username} {comment.created_at.split("T")[0]}</span>
+                                <Link href={`/profile/${comment.id}`} className="pointer">{comment.username} </Link>
+                                <span>{comment.created_at.split("T")[0]}</span>
                                 <div>{comment.content}</div>
                             </div>
                         )
@@ -19,14 +22,15 @@ export function Comments({ comments, createComment, session }) {
 
             <br />
             <br />
-            {
-                session?.user
+            {createComment
+                ? session?.user
                     ? <>
                         <textarea name="commentForm" id="commentForm" cols="90" rows="7" placeholder="comment"></textarea>
                         <br />
                         <button type="button" onClick={() => { createComment(document.querySelector('#commentForm').value) }}>Submit</button>
                     </>
                     : <span>Login to be able to comment</span>
+                : <></>
             }
         </>
     )
