@@ -1,7 +1,20 @@
-export function Objectives({ objectives, createObjective, session }) {
-    console.log(objectives);
+export function Objectives({ objectives, createObjective, owner }) {
     return (
         <>
+
+            {createObjective
+                ? owner
+                    ? <>
+                        <input type="number" name="objectiveForm" id="objectiveForm" placeholder="number of books"></input>
+                        <br />
+                        <button type="button" onClick={() => { createObjective(document.querySelector('#objectiveForm').value) }}>Submit</button>
+                    </>
+                    : <></>
+                : <></>
+            }
+
+
+            <br />
             <br />
 
             {objectives
@@ -22,17 +35,6 @@ export function Objectives({ objectives, createObjective, session }) {
             }
 
             <br />
-            <br />
-            {createObjective
-                ? session?.user
-                    ? <>
-                        <textarea name="commentForm" id="commentForm" cols="90" rows="7" placeholder="comment"></textarea>
-                        <br />
-                        <button type="button" onClick={() => { createObjective(document.querySelector('#commentForm').value) }}>Submit</button>
-                    </>
-                    : <span>Login to be able to comment</span>
-                : <></>
-            }
         </>
     )
 }

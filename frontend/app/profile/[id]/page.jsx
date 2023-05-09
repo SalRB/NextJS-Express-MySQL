@@ -8,24 +8,25 @@ import { ViewMenu } from "@/app/components/profile/ViewMenu";
 import { ListBooksProfile } from "@/app/components/profile/ListBooksProfile";
 import { Comments } from "@/app/components/Comments";
 import { Objectives } from "@/app/components/profile/Objectives";
+import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
 
     const [profile, setProfile] = useState();
+    const [id, setId] = useState();
     const [listData, setListData] = useState();
     const [view, setView] = useState();
     const [loading, setLoading] = useState(true);
-
-    let id;
+    const { data: session } = useSession();
 
     const fetchProfile = async () => {
-        console.log();
         setProfile(await consume(queryConsumer.apiUser, userQueries.getUser, id));
     }
 
     setTimeout(() => {
         try {
-            id = window.location.href.split("/")[4];
+            setId(window.location.href.split("/")[4]);
+
             if (id && !profile) fetchProfile();
             if (id && !listData && !view) changeView("favorites");
         } catch (e) { }
@@ -57,8 +58,12 @@ export default function ProfilePage() {
         }
     }
 
-
-
+    const createObjective = async (booksToRead) => {
+        if (booksToRead.length) {
+            const res = await consume(queryConsumer.apiObjective, objectiveQueries.createObjective, { token: session.user.token, data: { to_read: booksToRead } });
+            console.log(res);
+        }
+    }
 
     return (
         <>
@@ -72,7 +77,7 @@ export default function ProfilePage() {
                     ? listData && !loading
                         ? view == "comments"
                             ? <Comments comments={listData} />
-                            : <Objectives objectives={listData} />
+                            : <Objectives objectives={listData} createObjective={session.user.data.id ? createObjective : false} owner={session.user.data.id == id} />
                         : <>This user hasn't written any comment yet</>
                     : <ListBooksProfile listData={listData} />
                 : <>Loading...</>

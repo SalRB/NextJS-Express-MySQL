@@ -33,6 +33,10 @@ export default function HomePage() {
         await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
     }
 
+    const updateFavorite = async (bookId, fav) => {
+        await consume(queryConsumer.apiBookshelf, bookshelfQueries.toggleFavorite, { token: session.user.token, data: { book: bookId, favorited: fav } });
+    }
+
     const createEntry = async () => {
         const data = {
             token: session.user.token,
@@ -73,7 +77,7 @@ export default function HomePage() {
                 <br />
                 {
                     formData?.length >= 1
-                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} deleteEntry={deleteEntry} />
+                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} deleteEntry={deleteEntry} updateFavorite={updateFavorite} />
                         : session?.user
                             ? <span onClick={() => { createEntry() }}>Add</span>
                             : <span>Login to be able of registering books</span>
