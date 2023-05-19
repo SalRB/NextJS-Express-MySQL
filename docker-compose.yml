@@ -35,20 +35,20 @@ services:
     depends_on:
       - mysql
     command: /bin/bash -c "usermod -u `stat -c '${UID}' .` node && groupmod -g `stat -c '${GID}' .` node && su node -c 'npm install && npm run dev'"
-  # frontend:
-  #   container_name: frontend
-  #   image: node:18.15.0
-  #   tty: true
-  #   working_dir: /home/node/app
-  #   ports:
-  #     - $FRONTEND_LOCAL_PORT:$FRONTEND_DOCKER_PORT
-  #   volumes:
-  #     - ./frontend:/home/node/app
-  #   networks:
-  #     - vnet
-  #   depends_on:
-  #     - backend
-  #   command: /bin/bash -c "usermod -u `stat -c '${UID}' .` node && groupmod -g `stat -c '${GID}' .` node && su node -c 'npm install && npm run dev'"
+  frontend:
+    container_name: frontend
+    image: node:18.15.0
+    tty: true
+    working_dir: /home/node/app
+    ports:
+      - $FRONTEND_LOCAL_PORT:$FRONTEND_DOCKER_PORT
+    volumes:
+      - ./frontend:/home/node/app
+    networks:
+      - vnet
+    depends_on:
+      - backend
+    command: /bin/bash -c "usermod -u `stat -c '${UID}' .` node && groupmod -g `stat -c '${GID}' .` node && su node -c 'npm install && npm run dev'"
 
 networks:
   vnet:
