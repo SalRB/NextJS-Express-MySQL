@@ -30,6 +30,27 @@
 					"response": []
 				},
 				{
+					"name": "Get user profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Register",
 					"request": {
 						"method": "POST",
@@ -130,6 +151,28 @@
 								"api",
 								"comment",
 								"avsudybiu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/comment/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"user",
+								"1"
 							]
 						}
 					},
@@ -285,7 +328,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/objective/10",
+							"raw": "http://localhost:8000/api/objective/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -294,7 +337,7 @@
 							"path": [
 								"api",
 								"objective",
-								"10"
+								"1"
 							]
 						}
 					},
@@ -308,7 +351,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbHJvaWJhMDNAZ21haWwuY29tIiwiZXhwIjoxNjg1MjY1NTc3LCJpYXQiOjE2ODAwODE1Nzd9.bOyRySmtKLMm9UvVbpcR-6eFW4Q_xMRZuDuCv815VEU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbHJvaWJhMDNAZ21haWwuY29tIiwiZXhwIjoxNjg4NDA4NzY4LCJpYXQiOjE2ODMyMjQ3Njh9.qCsHFUUYmSYOaCCOoM8mtzKQMXFj9Cr9rBrj5nd4Egg",
 									"type": "string"
 								}
 							]
@@ -445,7 +488,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/favorite/10",
+							"raw": "http://localhost:8000/api/bookshelf/user/favorite/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -453,8 +496,10 @@
 							"port": "8000",
 							"path": [
 								"api",
+								"bookshelf",
+								"user",
 								"favorite",
-								"10"
+								"1"
 							]
 						}
 					},
@@ -477,7 +522,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"book\": \"suydiuhaoij\",\r\n    \"favorited\": true\r\n}",
+							"raw": "{\r\n    \"book\": \"vCS9BwAAQBAJ\",\r\n    \"favorited\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -485,7 +530,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/favorite",
+							"raw": "http://localhost:8000/api/bookshelf/user/favorite",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -493,6 +538,8 @@
 							"port": "8000",
 							"path": [
 								"api",
+								"bookshelf",
+								"user",
 								"favorite"
 							]
 						}
@@ -511,7 +558,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"state\": \"Completed\"\r\n}",
+							"raw": "{\r\n    \"state\": \"Reading\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,7 +566,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/bookshelf/10",
+							"raw": "http://localhost:8000/api/bookshelf/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -528,7 +575,51 @@
 							"path": [
 								"api",
 								"bookshelf",
-								"10"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get logged User entry",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbHJvaWJhMDNAZ21haWwuY29tIiwiZXhwIjoxNjg3Nzc3MjgwLCJpYXQiOjE2ODI1OTMyODB9.HnBg56AdgTlkZYSBb9CJTSOpVT2QhyViZJjZs8V4mE8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/bookshelf/book/OF-REAAAQBAJ",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"bookshelf",
+								"book",
+								"OF-REAAAQBAJ"
 							]
 						}
 					},
@@ -551,7 +642,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"book\": \"fdsfsfsa\"\r\n}\r\n",
+							"raw": "{\r\n    \"id\": \"OF-REAAAQBAJ\",\r\n    \"title\":\"El imperio final / The Final Empire\",\r\n    \"image\": \"http://books.google.com/books/publisher/content?id=OF-REAAAQBAJ&printsec=frontcover&img=1&zoom=5&imgtk=AFLRE73yE-r1WqTYeVFJVRVSYNUS4PjrqynRCwR2oCnLN56Hlc3YGvj-DQRMMyhAdc5Oj73rREpiH0j-Am4_k1dmkVsjxYpnOPRQjjrseK0YxQoDdE8Q-meFlZsWtR-GMUfJL5XkS5Gj&source=gbs_api\",\r\n    \"pages\": 672\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -581,7 +672,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbHJvaWJhMDNAZ21haWwuY29tIiwiZXhwIjoxNjg1MjY1NTc3LCJpYXQiOjE2ODAwODE1Nzd9.bOyRySmtKLMm9UvVbpcR-6eFW4Q_xMRZuDuCv815VEU",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbHJvaWJhMDNAZ21haWwuY29tIiwiZXhwIjoxNjg3Nzc3MjgwLCJpYXQiOjE2ODI1OTMyODB9.HnBg56AdgTlkZYSBb9CJTSOpVT2QhyViZJjZs8V4mE8",
 									"type": "string"
 								}
 							]
@@ -590,7 +681,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"review\": 10\r\n}\r\n",
+							"raw": "{\r\n    \"state\": \"Completed\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -598,7 +689,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8000/api/bookshelf/fdsfsfsa",
+							"raw": "http://localhost:8000/api/bookshelf/OF-REAAAQBAJ",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -607,7 +698,7 @@
 							"path": [
 								"api",
 								"bookshelf",
-								"fdsfsfsa"
+								"OF-REAAAQBAJ"
 							]
 						}
 					},
