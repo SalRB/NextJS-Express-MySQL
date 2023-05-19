@@ -1,4 +1,17 @@
+@font-face {
+  font-family: "Inter";
+  src: url(../public/fonts/Inter-VariableFont_slnt\,wght.ttf);
+}
+
 :root {
+  --primaryBg: #1F2122;
+  --secondaryBg: #27292A;
+  --primaryColor: #EC6090;
+  --borderRadius: 23px;
+  --textColor: #666666;
+}
+
+/* :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -67,15 +80,18 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-}
+} */
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  background-color: var(--primaryBg);
+  color: white;
+  font-family: "Inter";
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(to bottom,
       transparent,
@@ -91,8 +107,1066 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
 
 .pointer {
   cursor: pointer;
+}
+
+.appContainer {
+  background-color: var(--secondaryBg);
+  width: 80%;
+  min-height: 561px;
+  margin: auto;
+  border-radius: var(--borderRadius);
+  padding-top: 68px;
+  margin-top: 40px;
+}
+
+header {
+  padding-top: 15px;
+  width: 80%;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 30% 35% 15% 20%;
+  grid-row-gap: 24px;
+  grid-template-areas:
+    "appTitle . search profile";
+}
+
+header .appTitle {
+  grid-area: appTitle;
+}
+
+header .appTitle img {
+  position: absolute;
+  width: 200px;
+  top: -20px
+}
+
+header .appTitle span {
+  color: var(--primaryColor);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 19px;
+  position: absolute;
+  top: 45px;
+  left: 350px;
+}
+
+header .search {
+  grid-area: search;
+}
+
+header .profile {
+  grid-area: profile;
+}
+
+header .profile span {
+  justify-content: right;
+}
+
+.text-input {
+  background-color: var(--secondaryBg);
+  color: var(--textColor);
+  width: 180px;
+  height: 46px;
+  border-radius: var(--borderRadius);
+  padding-left: 50px;
+  border: 0px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+img.loupeSearch {
+  position: absolute;
+  top: 35px;
+  right: 690px;
+  max-height: 25px;
+}
+
+.text-input:focus {
+  border: 0px;
+}
+
+header .profile .headerProfileContainer {
+  background-color: var(--secondaryBg);
+  color: var(--textColor);
+  width: 113px;
+  height: 46px;
+  border-radius: var(--borderRadius);
+  padding-left: 30px;
+  border: 0px;
+  margin-right: 20px;
+}
+
+header .profile span {
+  display: flex;
+}
+
+header .profile .headerProfileContainer {
+  display: flex;
+}
+
+header .profile div.buttonContainer {
+  display: flex;
+  justify-content: right;
+}
+
+header .profile .headerProfileContainer div {
+  flex: 1;
+  margin-top: 12px;
+}
+
+header .profile .headerProfileContainer div img {
+  margin-top: -6px;
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.logOutButton {
+  margin-top: 12px;
+}
+
+.textAsButton {
+  color: var(--textColor);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-decoration: none;
+}
+
+.button {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  cursor: pointer;
+  width: 137px;
+  height: 46px;
+  border-radius: var(--borderRadius);
+  background-color: var(--primaryColor);
+  color: white;
+  border: 0px;
+}
+
+.authFormContainer {
+  background-color: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+  width: 658px;
+  min-height: 375px;
+  margin: auto;
+  /* padding: 53px 160px 0px 160px; */
+}
+
+.authFormContainer div.authFormContainer2 {
+  padding-left: 158px;
+  padding-top: 23px;
+  margin-bottom: 25px;
+  /* margin: auto; */
+}
+
+.authFormContainer div form .login {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  /* grid-template-rows: 30px; */
+  grid-row-gap: 24px;
+  grid-template-areas:
+    "emailLabel emailInput"
+    "passwordLabel passwordInput"
+    ". authFormButton";
+}
+
+.authFormContainer div form .register {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  grid-row-gap: 24px;
+  grid-template-areas:
+    "usernameLabel usernameInput"
+    "emailLabel emailInput"
+    "passwordLabel passwordInput"
+    ". authFormButton";
+}
+
+.usernameLabel {
+  grid-area: usernameLabel;
+  padding-top: 12px;
+}
+
+.usernameInput {
+  grid-area: usernameInput;
+}
+
+.emailLabel {
+  grid-area: emailLabel;
+  padding-top: 12px;
+}
+
+.emailInput {
+  grid-area: emailInput;
+}
+
+.passwordLabel {
+  grid-area: passwordLabel;
+  padding-top: 12px;
+}
+
+.passwordInput {
+  grid-area: passwordInput;
+}
+
+.authFormButton {
+  margin-left: 100px;
+  grid-area: authFormButton;
+  margin-bottom: 20px;
+}
+
+.input {
+  width: 207px;
+  height: 46px;
+  background-color: var(--secondaryBg);
+  color: var(--textColor);
+  border-radius: var(--borderRadius);
+  border: 0px;
+  padding-left: 30px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.text {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.titleText {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.highlightText {
+  color: var(--primaryColor);
+}
+
+.searchPageContainer {
+  width: 80%;
+  margin: auto;
+}
+
+.searchPageContainer .noResults {
+  margin-top: 30px;
+  margin-left: 30px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.advancedSearchContainer {
+  width: 1196px;
+  height: 169px;
+  background-color: var(--primaryBg);
+  border-radius: var(--borderRadius);
+  border: 1px solid var(--primaryColor);
+}
+
+.advancedSearchContainer form {
+  padding-top: 28px;
+  padding-left: 32px;
+  display: grid;
+  grid-template-columns: 28% 28% 28% 10%;
+  grid-row-gap: 27px;
+  grid-template-areas:
+    "advencedSearchTitle . . ."
+    "title author isbn buttonDiv";
+}
+
+.advancedSearchContainer form .advencedSearchTitle {
+  grid-area: advencedSearchTitle;
+}
+
+.advancedSearchContainer form .title {
+  grid-area: title;
+}
+
+.advancedSearchContainer form .author {
+  grid-area: author;
+}
+
+.advancedSearchContainer form .isbn {
+  grid-area: isbn;
+}
+
+.advancedSearchContainer form .buttonDiv {
+  grid-area: buttonDiv;
+}
+
+.advancedSearchInput {
+  width: 180px;
+  height: 46px;
+  background-color: var(--secondaryBg);
+  color: var(--textColor);
+  border-radius: var(--borderRadius);
+  border: 0px;
+  padding-left: 30px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.inputLabel {
+  margin-left: 15px;
+  margin-right: 10px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.searchResultContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 46px;
+  grid-column-gap: 62px;
+
+  margin-top: 55px;
+  margin-bottom: 60px;
+  padding-bottom: 60px;
+}
+
+.searchResultCard {
+  display: grid;
+  grid-template-columns: 20% 60% 15% 5%;
+  grid-template-rows: 65px 120px;
+  /* grid-row-gap: 27px; */
+  grid-template-areas:
+    "cardImageContainer bookTitle bookPages bookPages"
+    "cardImageContainer bookSynopsis bookSynopsis .";
+
+  width: 563px;
+  height: 214px;
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+
+.searchResultCard .cardImageContainer {
+  grid-area: cardImageContainer;
+}
+
+.searchResultCard .bookTitle {
+  grid-area: bookTitle;
+  margin: 33px 0px 0px 33px;
+
+  max-height: 30px;
+  display: flex;
+}
+
+.searchResultCard .bookPages {
+  margin: 33px 0px 0px 33px;
+  grid-area: bookPages;
+}
+
+.searchResultCard .bookSynopsis {
+  grid-area: bookSynopsis;
+
+  margin: 0px 0px 0px 33px;
+  display: flex;
+}
+
+.searchResultCard .cardImageContainer img {
+  margin: 33px 0px 0px 33px;
+  max-height: 151px;
+  max-width: 99px;
+}
+
+.searchResultCard .bookTitle a {
+  text-decoration: none;
+  color: white;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 29px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.searchResultCard .bookPages span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 29px;
+  color: var(--textColor);
+}
+
+.searchResultCard .bookSynopsis span {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 29px;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.detailsPageContainer {
+  display: grid;
+  grid-template-columns: 20% 75%;
+  grid-template-rows: 50px 40px;
+  /* grid-row-gap: 27px; */
+  grid-template-areas:
+    "imageContainer bookTitle "
+    "imageContainer bookAuthors "
+    "imageContainer bookSynopsis "
+    "bookPages bookFormContainer "
+    "bookPages bookFormContainer ";
+}
+
+.detailsPageContainer .imageContainer {
+  grid-area: imageContainer;
+}
+
+.detailsPageContainer .bookTitle {
+  grid-area: bookTitle;
+}
+
+.detailsPageContainer .bookPages {
+  margin-left: 50px;
+  grid-area: bookPages;
+}
+
+.detailsPageContainer .bookAuthors {
+  grid-area: bookAuthors;
+}
+
+.detailsPageContainer .bookSynopsis {
+  grid-area: bookSynopsis;
+}
+
+.detailsPageContainer .imageContainer img {
+  margin: 33px 0px 0px 65px;
+  width: 60%;
+  /* max-height: 151px; */
+  /* max-width: 99px; */
+}
+
+.detailsPageContainer .bookTitle span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.detailsPageContainer .bookAuthors span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.detailsPageContainer .bookSynopsis div {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: justify;
+  text-justify: inter-word;
+
+  /* padding-right: 40px; */
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.detailsPageContainer .bookPages span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.detailsPageContainer .bookFormContainer {
+  grid-area: bookFormContainer;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 28% 26% 26% 9% 11%;
+  grid-template-rows: 50px 40px;
+  /* grid-row-gap: 27px; */
+  grid-template-areas:
+    "state score pages favorite delete";
+
+  height: 93px;
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: 23px;
+}
+
+.detailsPageContainer .bookFormContainer .state {
+  grid-area: state;
+}
+
+.detailsPageContainer .bookFormContainer .state label {
+  margin-left: 33px;
+}
+
+.detailsPageContainer .bookFormContainer .state select {
+  background-color: var(--secondaryBg);
+  color: var(--textColor);
+  border-radius: var(--borderRadius);
+
+  margin-top: 22px;
+  margin-left: 5px;
+  padding-left: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+
+  color: #FFFFFF;
+  width: 160px;
+  height: 46px;
+}
+
+.detailsPageContainer .bookFormContainer .score {
+  grid-area: score;
+}
+
+.detailsPageContainer div label {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin-right: 20px;
+
+  color: #FFFFFF;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  /* margin: 0; */
+}
+
+
+.detailsPageContainer div input {
+  color: red;
+  width: 50px;
+  background: white;
+
+  margin-top: 22px;
+  padding-left: 20px;
+
+  height: 46px;
+
+  background: var(--secondaryBg);
+  color: white;
+  border-radius: var(--borderRadius) 0px 0px var(--borderRadius);
+  border: 0px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.detailsPageContainer div input:focus,
+.detailsPageContainer div input:active,
+.detailsPageContainer div input:focus-visible {
+  outline: none;
+}
+
+.detailsPageContainer div input.fakeInput {
+  background-color: var(--secondaryBg);
+  outline: none;
+  border: 0px;
+  border-radius: 0px var(--borderRadius) var(--borderRadius) 0px;
+  padding-right: 30px;
+}
+
+.detailsPageContainer .bookFormContainer .pages {
+  grid-area: pages;
+}
+
+.detailsPageContainer .bookFormContainer .favorite {
+  grid-area: favorite;
+}
+
+.detailsPageContainer .bookFormContainer .favorite img {
+  margin-top: 24px;
+  margin-left: 40px;
+  width: 40px;
+}
+
+.detailsPageContainer .bookFormContainer .delete {
+  grid-area: delete;
+  padding-top: 33px;
+}
+
+.bookFormContainer span.addBook {
+  margin: 33px 0px 0px 540px;
+  white-space: nowrap;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+}
+
+.bookFormContainer span.loginAlert {
+  margin: 33px 0px 0px 430px;
+  white-space: nowrap;
+}
+
+.bookFormContainer span.loginAlert a {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+}
+
+.createCommentContainer {
+  display: grid;
+  grid-template-columns: 10% 70% 10%;
+  grid-template-areas:
+    "label textarea textarea"
+    ". . button";
+
+
+  margin: 50px auto auto auto;
+  width: 1417px;
+  min-height: 93px;
+
+
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.createCommentContainer div.loginAlert {
+  padding-left: 600px;
+  padding-top: 35px;
+  white-space: nowrap;
+}
+
+.createCommentContainer div.loginAlert a {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+}
+
+textarea {
+  background: var(--secondaryBg);
+  color: var(--textColor);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+  padding: 10px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.commentLabel {
+  margin-left: 30px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.createCommentContainer .label {
+  margin-top: 35px;
+  margin-left: 20px;
+  grid-area: label;
+}
+
+.createCommentContainer .textarea {
+  grid-area: textarea;
+}
+
+.createCommentContainer .button {
+  grid-area: button;
+  margin-bottom: 30px;
+  margin-right: 90px;
+}
+
+.commentsContainer .comment {
+  display: grid;
+  grid-template-columns: 10% 80%;
+  grid-template-areas:
+    "user date"
+    "content content";
+
+
+  margin: 50px auto auto auto;
+  width: 1417px;
+  min-height: 93px;
+
+  padding-top: 30px;
+  padding-left: 30px;
+
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.commentsContainer .comment .user {
+  grid-area: user;
+}
+
+.commentsContainer .comment .user a {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+}
+
+.commentsContainer .comment .date {
+  grid-area: date;
+}
+
+.commentsContainer .comment .content {
+  grid-area: content;
+
+  padding: 20px 20px 20px 20px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  background: var(--secondaryBg);
+  border-radius: var(--borderRadius);
+}
+
+.commentsContainer {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+}
+
+.profileContainer {
+  margin-bottom: 50px;
+  margin: auto;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 40px auto auto;
+  grid-template-areas:
+    "userInfo viewMenu"
+    "userInfo listDataContainer";
+}
+
+.profileContainer .userInfo {
+  grid-area: userInfo;
+}
+
+.profileContainer .userInfo div img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.profileContainer .userInfo div.username {
+  margin-bottom: 28px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.profileContainer .userInfo div.username {
+  margin-bottom: 28px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 39px;
+}
+
+.profileContainer .userInfo div.bio {
+  margin-top: 28px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 39px;
+  text-align: justify;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.profileContainer .viewMenu {
+  grid-area: viewMenu;
+}
+
+.profileContainer .viewMenu {
+  display: flex;
+  justify-content: space-around;
+  max-height: 40px;
+}
+
+.profileContainer .viewMenu span {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 39px;
+  color: var(--textColor);
+}
+
+.profileContainer .viewMenu span.active {
+  color: white;
+}
+
+.profileContainer .listDataContainer {
+  grid-area: listDataContainer;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.listBooksContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-gap: 46px;
+  grid-column-gap: 62px;
+
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks {
+  display: grid;
+  grid-template-columns: 20% 5% 75%;
+  grid-template-rows: 35px auto auto;
+  grid-template-areas:
+    "img . title"
+    "img . data";
+
+  width: 425px;
+  padding: 30px 30px 30px 30px;
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks img {
+  width: 90px;
+  margin-right: 25px;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks div.title {
+  display: flex;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks div a {
+  text-decoration: none;
+  color: white;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 29px;
+  width: 330px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks .img {
+  grid-area: img;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks .title {
+  grid-area: title;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks .data {
+  grid-area: data;
+}
+
+.profileContainer .listDataContainer .listBooksContainer div.listBooks .data div {
+  margin-top: 12px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.commentsProfileContainer .comment {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-areas:
+    "user date"
+    "content content";
+
+  padding-right: 30px;
+  margin: auto auto 30px auto;
+  width: 100%;
+  min-height: 93px;
+
+  padding-top: 30px;
+  padding-left: 30px;
+
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.commentsProfileContainer .comment .user {
+  grid-area: user;
+}
+
+.commentsProfileContainer .comment .user a {
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: white;
+}
+
+.commentsProfileContainer .comment .date {
+  grid-area: date;
+}
+
+.commentsProfileContainer .comment .content {
+  grid-area: content;
+
+  padding: 20px 20px 20px 20px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  background: var(--secondaryBg);
+  border-radius: var(--borderRadius);
+}
+
+.commentsProfileContainer {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+}
+
+.objectiveContainer {
+  width: 900px;
+  margin: auto;
+}
+
+.objective {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-areas:
+    "year progress"
+    "outerBar outerBar";
+
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 80%;
+  margin: auto auto 25px auto;
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.objective .year {
+  grid-area: year;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  margin-left: 80px;
+}
+
+.objective .progress {
+  grid-area: progress;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.objective .outerBar {
+  grid-area: outerBar;
+  background-color: var(--textColor);
+  width: 80%;
+  height: 15px;
+  margin: auto;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  border-radius: var(--borderRadius);
+}
+
+.objective .innerBar {
+  background-color: var(--primaryColor);
+  height: 15px;
+  border-radius: var(--borderRadius);
+}
+
+.createObjectiveContainer {
+  display: grid;
+  grid-template-columns: 10% 25% 40% 20%;
+  grid-template-areas:
+    ". labelContainer inputContainer buttonContainer";
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 80%;
+  margin: auto auto 25px auto;
+  background: var(--primaryBg);
+  border: 1px solid var(--primaryColor);
+  border-radius: var(--borderRadius);
+}
+
+.createObjectiveContainer .labelContainer {
+  grid-area: labelContainer;
+  margin-top: 13px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.createObjectiveContainer .inputContainer {
+  grid-area: inputContainer;
+}
+
+.createObjectiveContainer .inputContainer input {
+  max-width: 90px;
+}
+
+.createObjectiveContainer .buttonContainer {
+  grid-area: buttonContainer;
+}
+
+.createObjectiveContainer span.yearWarning {
+  margin-left: 220px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.homeText {
+  margin-left: 560px;
+  width: 30%;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 24px;
 }

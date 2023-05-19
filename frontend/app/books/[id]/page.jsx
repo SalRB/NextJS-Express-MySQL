@@ -1,11 +1,13 @@
 "use client"
 
+import { BookDetails } from "@/app/components/BookDetails";
 import { BookForm } from "@/app/components/BookForm";
 import { Comments } from "@/app/components/Comments";
 import consume from "@/app/core/consumer";
 import { bookQueries, bookshelfQueries, commentQueries, queryConsumer } from "@/app/core/queries";
 import { useSession } from "next-auth/react";
 import { useState } from "react"
+import { toast } from 'react-toastify';
 
 export default function HomePage() {
     const [book, setBook] = useState();
@@ -31,10 +33,12 @@ export default function HomePage() {
 
     const updateUserEntry = async (data) => {
         await consume(queryConsumer.apiBookshelf, bookshelfQueries.updateEntry, { token: session.user.token, book: id, data });
+        toast.success("Entry updated!", { theme: "dark" })
     }
 
     const updateFavorite = async (bookId, fav) => {
         await consume(queryConsumer.apiBookshelf, bookshelfQueries.toggleFavorite, { token: session.user.token, data: { book: bookId, favorited: fav } });
+        toast.success("Entry updated!", { theme: "dark" })
     }
 
     const createEntry = async () => {
@@ -53,39 +57,25 @@ export default function HomePage() {
     }
 
     const deleteEntry = async () => {
-        const res = await consume(queryConsumer.apiBookshelf, bookshelfQueries.deleteEntry, data);
+        const res = await consume(queryConsumer.apiBookshelf, bookshelfQueries.deleteEntry, { token: session.user.token, book: id });
         setFormData(null);
+        toast.success("Entry deleted!", { theme: "dark" })
     }
 
     const createComment = async (content) => {
         await consume(queryConsumer.apiComment, commentQueries.createComment, { token: session.user.token, data: { book: id, content: content } });
+        toast.success("Comment published!", { theme: "dark" })
     }
 
     return (
         <>
-            <div>
+            <div className="detailsPageContainer">
                 {book?.id
-                    ? <>
-                        <h1>{book.volumeInfo.title}</h1>
-                        <h2>{book.volumeInfo.authors}</h2>
-                        <span>{book.volumeInfo.industryIdentifiers[0].identifier}</span><br />
-                        <span>{book.volumeInfo.description}</span>
-                    </>
-                    : <></>
+                    ? <BookDetails book={book} formData={formData} session={session} updateUserEntry={updateUserEntry} deleteEntry={deleteEntry} updateFavorite={updateFavorite} createEntry={createEntry} />
+                    : <>Loading...</>
                 }
-                <br />
-                <br />
-                {
-                    formData?.length >= 1
-                        ? <BookForm formData={formData[0]} updateUserEntry={updateUserEntry} deleteEntry={deleteEntry} updateFavorite={updateFavorite} />
-                        : session?.user
-                            ? <span onClick={() => { createEntry() }}>Add</span>
-                            : <span>Login to be able of registering books</span>
-                }
-
-                <Comments comments={comments} createComment={createComment} session={session} />
             </div>
-
+            <Comments comments={comments} createComment={createComment} session={session} />
         </>
     )
 }

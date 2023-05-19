@@ -1,13 +1,15 @@
 export function UserInfo({ profile }) {
     return (
         <>
-            <img src={profile.pfp} width={30} />
-            <br />
-            {profile.username}
-            <br />
-            {profile.bio}
-            <br />
-            <br />
+            <div className="username">
+                {profile.username}
+            </div>
+            <div>
+                <img src={profile.pfp} width={30} />
+            </div>
+            <div className="bio">
+                {profile.bio}
+            </div>
         </>
     )
 }

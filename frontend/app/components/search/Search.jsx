@@ -12,7 +12,8 @@ export function Search({ links }) {
 
     return (
         <form onSubmit={(event) => search(event)}>
-            <input type="text" placeholder="search" id="search" />
+            <input className="text-input" type="text" placeholder="Search" id="search" />
+            <img className="loupeSearch" src="/loupe.png" alt="" />
         </form>
     )
 }

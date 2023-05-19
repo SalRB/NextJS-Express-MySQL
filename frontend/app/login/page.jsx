@@ -10,16 +10,22 @@ export default function HomePage() {
 
     return (
         <>
-            {form
-                ? <>
-                    <LoginForm />
-                    <span>Don't have an account? <b onClick={() => setform(!form)} className="pointer">Sign up</b></span>
-                </>
-                : <>
-                    <RegisterForm setform={setform} />
-                    <span>Already have an account? <b onClick={() => setform(!form)} className="pointer">Log in</b></span>
-                </>
-            }
+            <div className="authFormContainer">
+                {form
+                    ? <>
+                        <div className="authFormContainer2">
+                            <LoginForm />
+                            <span className="text">Don't have an account? <b onClick={() => setform(!form)} className="pointer highlightText">Create one!</b></span>
+                        </div>
+                    </>
+                    : <>
+                        <div className="authFormContainer2">
+                            <RegisterForm setform={setform} />
+                            <span className="text">Already have an account? <b onClick={() => setform(!form)} className="pointer highlightText">Log in</b></span>
+                        </div>
+                    </>
+                }
+            </div >
         </>
     )
 }

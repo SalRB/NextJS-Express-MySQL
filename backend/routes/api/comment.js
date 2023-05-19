@@ -10,6 +10,4 @@ router.post('/', auth.required, commentController.createComment);
 router.put('/:id', auth.required, commentController.updateComment);
 router.delete('/:id', auth.required, commentController.deleteComment);
 
-// router.get('/delete', commentController.deletecomments);
-
 module.exports = router;

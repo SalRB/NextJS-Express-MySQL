@@ -29,20 +29,36 @@ export function RegisterForm({ setform }) {
         <>
             <h2>Register</h2>
             <form onSubmit={(event) => submit(event)}>
-                <label htmlFor="username">Username:</label>
-                <input type="text" name="username" id="username" />
-                <label htmlFor="email">Email:</label>
-                <input type="email" name="email" id="email" />
-                <label htmlFor="passwd">Password:</label>
-                <input
-                    type="password"
-                    id="passwd"
-                    name="passwd"
-                    pattern="[a-z0-9]{1,15}"
-                    title="Password should be digits (0 to 9) or alphabets (a to z)."
-                />
-                <button type="submit">Submit</button>
-            </form>
+                <div className="register">
+                    <div className="usernameLabel">
+                        <label className="text" htmlFor="username">Username</label>
+                    </div>
+                    <div className="usernameInput" >
+                        <input className="input" type="text" name="username" id="username" placeholder="username" />
+                    </div>
+                    <div className="emailLabel">
+                        <label className="text" htmlFor="email">Email</label>
+                    </div>
+                    <div className="emailInput" >
+                        <input className="input" type="email" name="email" id="email" placeholder="email" />
+                    </div>
+                    <div className="passwordLabel">
+                        <label className="text" htmlFor="passwd">Password</label>
+                    </div>
+                    <div className="passwordInput">
+                        <input
+                            className="input"
+                            type="password"
+                            id="passwd"
+                            name="passwd"
+                            pattern="[a-z0-9]{1,15}"
+                            title="Password should be digits (0 to 9) or alphabets (a to z)."
+                            placeholder="password"
+                        />
+                    </div>
+                    <button type="submit" className="button authFormButton">Register</button>
+                </div>
+            </form >
         </>
     )
 }

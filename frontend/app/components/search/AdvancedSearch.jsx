@@ -22,14 +22,27 @@ export function AdvancedSearch({ links }) {
     }
 
     return (
-        <form onSubmit={(event) => search(event)}>
-            <label htmlFor="title">Title </label>
-            <input type="text" placeholder="title" id="title" name="title" />
-            <label htmlFor="author">Author </label>
-            <input type="text" placeholder="author" id="author" name="author" />
-            <label htmlFor="isbn">ISBN </label>
-            <input type="text" placeholder="ISBN" id="isbn" name="isbn" />
-            <button type="submit">Search</button>
-        </form>
+        <div className="advancedSearchContainer">
+            <form onSubmit={(event) => search(event)}>
+                <div className="advencedSearchTitle">
+                    <span className="titleText">Advanced search</span>
+                </div>
+                <div className="title">
+                    <label className="inputLabel" htmlFor="title">Title </label>
+                    <input className="advancedSearchInput" type="text" placeholder="title" id="title" name="title" />
+                </div>
+                <div className="author">
+                    <label className="inputLabel" htmlFor="author">Author </label>
+                    <input className="advancedSearchInput" type="text" placeholder="author" id="author" name="author" />
+                </div>
+                <div className="isbn">
+                    <label className="inputLabel" htmlFor="isbn">ISBN </label>
+                    <input className="advancedSearchInput" type="text" placeholder="ISBN" id="isbn" name="isbn" />
+                </div>
+                <div className="buttonDiv">
+                    <button className="button" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
     )
 }

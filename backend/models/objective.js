@@ -19,7 +19,8 @@ const userList = (req, res) => {
             FROM objectives o           
             LEFT JOIN bookshelf bs ON o.objective_year = bs.completed_year
             WHERE o.user_id = ? 
-            GROUP BY o.objective_year;`,
+            GROUP BY o.objective_year
+            ORDER BY o.objective_year DESC;`,
             id);
         return { status: 200, result: result }
     } catch (e) {

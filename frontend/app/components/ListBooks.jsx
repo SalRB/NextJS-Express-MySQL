@@ -3,12 +3,23 @@ import Link from "next/link";
 export function ListBooks(books) {
     return (
         <>
-            <h1>Esto es un listado</h1>
-            <div>
+            <div className="searchResultContainer">
                 {books.books.map((book) => {
-                    return <li key={book.id}>
-                        <Link href={"books/" + book.id}>{book.volumeInfo.title}</Link>
-                    </li>
+                    console.log(book);
+                    return <div key={book.id} className="searchResultCard">
+                        <div className="cardImageContainer">
+                            <img src={book.volumeInfo.imageLinks?.thumbnail ?? "unavailableImage2.jpeg"} alt="" />
+                        </div>
+                        <div className="bookTitle">
+                            <Link href={"books/" + book.id}>{book.volumeInfo.title}</Link>
+                        </div>
+                        <div className="bookPages">
+                            <span>{book.volumeInfo.pageCount} p</span>
+                        </div>
+                        <div className="bookSynopsis">
+                            <span>{book.volumeInfo.description ?? "No synopsis provided"}</span>
+                        </div>
+                    </div>
                 })}
             </div>
 

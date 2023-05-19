@@ -3,35 +3,52 @@ import Link from "next/link"
 export function Comments({ comments, createComment, session }) {
     return (
         <>
-            <br />
+            <div className="commentsContainer">
+                <div className="createCommentContainer">
 
-            {comments
-                ? <>
-                    {comments.map(comment => {
-                        return (
-                            <div key={comment.id}>
-                                <Link href={`/profile/${comment.id}`} className="pointer">{comment.username} </Link>
-                                <span>{comment.created_at.split("T")[0]}</span>
-                                <div>{comment.content}</div>
-                            </div>
-                        )
-                    })}
-                </>
-                : <span>Be the first to write a comment</span>
-            }
+                    {createComment
+                        ? session?.user
+                            ? <>
+                                <div className="label">
+                                    <label className="commentLabel" htmlFor="commentForm">Comment</label>
+                                </div>
+                                <div className="textarea">
+                                    <textarea name="commentForm" id="commentForm" cols="120" rows="5" placeholder="comment"></textarea>
+                                </div>
+                                <div className="button">
+                                    <button className="button" type="button" onClick={() => { createComment(document.querySelector('#commentForm').value) }}>Submit</button>
+                                </div>
+                            </>
+                            : <div className="loginAlert"><Link href="/login">Login to be able to comment</Link></div>
+                        : <></>
+                    }
 
-            <br />
-            <br />
-            {createComment
-                ? session?.user
+                </div>
+                {console.log(comments)}
+
+                {comments
                     ? <>
-                        <textarea name="commentForm" id="commentForm" cols="90" rows="7" placeholder="comment"></textarea>
-                        <br />
-                        <button type="button" onClick={() => { createComment(document.querySelector('#commentForm').value) }}>Submit</button>
+                        {comments.map(comment => {
+                            return (
+                                <div className="comment" key={comment.id}>
+                                    <div className="user">
+                                        <Link href={`/profile/${comment.user_id}`} className="pointer">{comment.username} </Link>
+                                    </div>
+                                    <div className="date">
+                                        <span>{comment.created_at.split("T")[0]}</span>
+                                    </div>
+                                    <div className="content">
+                                        <div>{comment.content}</div>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </>
-                    : <span>Login to be able to comment</span>
-                : <></>
-            }
+                    : <span>Be the first to write a comment</span>
+                }
+
+
+            </div>
         </>
     )
 }

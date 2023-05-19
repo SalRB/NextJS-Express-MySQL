@@ -30,11 +30,13 @@ export default function HomePage() {
 
     return (
         <>
-            <AdvancedSearch />
-            {books?.items
-                ? <ListBooks books={books.items} />
-                : <>There are no results matching the search criteria.</>
-            }
+            <div className="searchPageContainer">
+                <AdvancedSearch />
+                {books?.items
+                    ? <ListBooks books={books.items} />
+                    : <div className="noResults">There are no results matching the search criteria.</div>
+                }
+            </div>
         </>
     )
 }

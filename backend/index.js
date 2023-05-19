@@ -16,5 +16,5 @@ app.use(express.json());
 app.use(require('./routes'));
 
 app.listen(process.env.PORT_BACKEND, () => {
-    console.log(`Juan`);
+    console.log(`Server running`);
 })
